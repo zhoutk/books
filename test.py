@@ -32,12 +32,16 @@ with open("list.txt", encoding= 'utf-8') as f:
                             record.append((e[:dotIndex], e[dotIndex + 1:], els[0][:-1], picName,info))
             els = []
         line = f.readline()
-        if len(record) >= 1000:
-            cur = conn.cursor()
-            cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
-            conn.commit()
-            print(bookCount)
-            record = []
+        if len(record) >= 10:
+            try:
+                cur = conn.cursor()
+                cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
+                conn.commit()
+                print(bookCount)
+            except:
+                print(record)
+            finally:
+                record = []
     if len(record) > 0:
         cur = conn.cursor()
         cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
