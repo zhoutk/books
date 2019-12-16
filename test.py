@@ -1,8 +1,7 @@
 import pymysql
 import os
 
-conn = pymysql.connect(host='192.168.1.6', port=3388, user='root',
-                       passwd='5LiarZp6', db='books', charset='utf8mb4')
+conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
 
 with open("list.txt", encoding= 'utf-8') as f:
     line = f.readline()
@@ -32,17 +31,17 @@ with open("list.txt", encoding= 'utf-8') as f:
                             record.append((e[:dotIndex], e[dotIndex + 1:], els[0][:-1], picName,info))
             els = []
         line = f.readline()
-        if len(record) >= 10:
-            try:
+        if len(record) >= 1000:
+                conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
                 cur = conn.cursor()
                 cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
                 conn.commit()
-                print(bookCount)
-            except:
-                print(record)
-            finally:
+                cur.close()
+                conn.close()
                 record = []
+                print(bookCount)
     if len(record) > 0:
+        conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
         cur = conn.cursor()
         cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
         conn.commit()
