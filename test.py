@@ -20,7 +20,10 @@ with open("list.txt", encoding= 'utf-8') as f:
                         if e.startswith("pic."):
                             picName = e
                         elif e.endswith(".txt"):
-                            info = open("/home/zhoutk/" + els[0][:-1] + "/" + e, encoding="utf-8").read()
+                            try:
+                                info = open("/home/zhoutk/" + els[0][:-1] + "/" + e, encoding="utf-8").read()
+                            except:
+                                print(els)
                     for e in els[1:]:
                         dotIndex = e.rfind(".")
                         if dotIndex > -1 and not(e[:dotIndex] == "info" or e[:dotIndex] == "pic"):
