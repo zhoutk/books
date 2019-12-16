@@ -3,7 +3,7 @@ import pymysql
 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root',
                        passwd='5LiarZp6', db='books', charset='utf8mb4')
 
-with open("booklist.txt", encoding= 'utf-8') as f:
+with open("list.txt", encoding= 'utf-8') as f:
     line = f.readline()
     els = []
     bookCount = 0
@@ -20,7 +20,7 @@ with open("booklist.txt", encoding= 'utf-8') as f:
                         if e.startswith("pic."):
                             picName = e
                         elif e.endswith(".txt"):
-                            info = open("/Users/zhoutk/" + e, encoding="utf-8").read()
+                            info = open("/home/zhoutk/" + els[0][:-1] + "/" + e, encoding="utf-8").read()
                     for e in els[1:]:
                         dotIndex = e.rfind(".")
                         if dotIndex > -1 and not(e[:dotIndex] == "info" or e[:dotIndex] == "pic"):
@@ -31,16 +31,17 @@ with open("booklist.txt", encoding= 'utf-8') as f:
         if len(record) >= 1000:
             cur = conn.cursor()
             cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
+    	    conn.commit()
             print(bookCount)
             record = []
     if len(record) > 0:
         cur = conn.cursor()
         cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
+    	conn.commit()
         print(bookCount)
-    conn.commit()
     cur.close()
     conn.close()
     
-    print(f"book count: {bookCount}")
+    print(bookCount)
 
         
