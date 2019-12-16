@@ -1,4 +1,5 @@
 import pymysql
+import os
 
 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root',
                        passwd='5LiarZp6', db='books', charset='utf8mb4')
@@ -13,7 +14,7 @@ with open("list.txt", encoding= 'utf-8') as f:
             els.append(line[:-1])
         else:
             if len(els) > 1:
-                if els[0][-1:] == ":" and els[1][-1:] != "/":
+                if els[0][-1:] == ":" and els[1][-1:] != "/" and os.path.exists("/home/zhoutk/" + els[0][:-1]):
                     info = ""
                     picName = ""
                     for e in els[1:]:
