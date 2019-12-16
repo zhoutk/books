@@ -20,7 +20,7 @@ with open("list.txt", encoding= 'utf-8') as f:
                     for e in els[1:]:
                         if e.startswith("pic."):
                             picName = e
-                        elif e.endswith(".txt"):
+                        elif e == "info.txt":
                             try:
                                 info = open("/home/zhoutk/" + els[0][:-1] + "/" + e, encoding="utf-8").read()
                             except:
@@ -41,7 +41,6 @@ with open("list.txt", encoding= 'utf-8') as f:
                 conn.close()
                 record = []
                 print(bookCount)
-                time.sleep(10)
                 
     if len(record) > 0:
         conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
