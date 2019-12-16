@@ -1,5 +1,6 @@
 import pymysql
 import os
+import time
 
 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
 
@@ -40,15 +41,17 @@ with open("list.txt", encoding= 'utf-8') as f:
                 conn.close()
                 record = []
                 print(bookCount)
+                time.sleep(10)
+                
     if len(record) > 0:
         conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
         cur = conn.cursor()
         cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
         conn.commit()
         print(bookCount)
-    cur.close()
-    conn.close()
+        cur.close()
+        conn.close()
     
-    print(bookCount)
+    print("finish.")
 
         
