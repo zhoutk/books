@@ -21,7 +21,7 @@ with open("list_other.txt", encoding= 'utf-8') as f:
                         dotIndex = e.rfind(".")
                         if dotIndex > -1 and not(e[dotIndex + 1:] == "db" or e[dotIndex + 1:] == "jpg" or e[dotIndex + 1:] == "jpeg" or e[dotIndex + 1:] == "png" or e[dotIndex + 1:] == "gif"):
                             bookCount = bookCount + 1
-                            record.append((e[:dotIndex], e[dotIndex + 1:], "", picName,info))
+                            record.append((e[:dotIndex], e[dotIndex + 1:], els[0][:-1], picName,info))
             els = []
         line = f.readline()
         if len(record) >= 1000:
