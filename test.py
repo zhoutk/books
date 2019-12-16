@@ -14,7 +14,7 @@ with open("list_other.txt", encoding= 'utf-8') as f:
             els.append(line[:-1])
         else:
             if len(els) > 1:
-                if els[0][-1:] == ":" and els[1][-1:] != "/" and os.path.exists("/home/zhoutk/" + els[0][:-1]):
+                if els[0][-1:] == ":" and os.path.exists("/home/zhoutk/" + els[0][:-1]):
                     info = ""
                     picName = ""
                     for e in els[1:]:
