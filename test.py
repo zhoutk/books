@@ -1,7 +1,7 @@
 import pymysql
 
-conn = pymysql.connect(host='192.168.1.163', port=3306, user='root',
-                       passwd='123456', db='books', charset='utf8mb4')
+conn = pymysql.connect(host='192.168.1.6', port=3388, user='root',
+                       passwd='5LiarZp6', db='books', charset='utf8mb4')
 
 with open("booklist.txt", encoding= 'utf-8') as f:
     line = f.readline()
@@ -19,16 +19,24 @@ with open("booklist.txt", encoding= 'utf-8') as f:
                     for e in els[1:]:
                         if e.startswith("pic."):
                             picName = e
-                            break
+                        elif e.endswith(".txt"):
+                            info = open("/Users/zhoutk/" + e, encoding="utf-8").read()
                     for e in els[1:]:
                         dotIndex = e.rfind(".")
                         if dotIndex > -1 and not(e[:dotIndex] == "info" or e[:dotIndex] == "pic"):
                             bookCount = bookCount + 1
-                            record.append((e[:dotIndex], e[dotIndex + 1:], els[0][:-1], picName))
+                            record.append((e[:dotIndex], e[dotIndex + 1:], els[0][:-1], picName,info))
             els = []
         line = f.readline()
-    cur = conn.cursor()
-    cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`) values (%s,%s,%s,%s)', record)
+        if len(record) >= 1000:
+            cur = conn.cursor()
+            cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
+            print(bookCount)
+            record = []
+    if len(record) > 0:
+        cur = conn.cursor()
+        cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
+        print(bookCount)
     conn.commit()
     cur.close()
     conn.close()
