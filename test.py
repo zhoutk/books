@@ -4,7 +4,7 @@ import time
 
 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
 
-with open("list.txt", encoding= 'utf-8') as f:
+with open("list_other.txt", encoding= 'utf-8') as f:
     line = f.readline()
     els = []
     bookCount = 0
@@ -18,18 +18,10 @@ with open("list.txt", encoding= 'utf-8') as f:
                     info = ""
                     picName = ""
                     for e in els[1:]:
-                        if e.startswith("pic."):
-                            picName = e
-                        elif e == "info.txt":
-                            try:
-                                info = open("/home/zhoutk/" + els[0][:-1] + "/" + e, encoding="utf-8").read()
-                            except:
-                                print(els)
-                    for e in els[1:]:
                         dotIndex = e.rfind(".")
-                        if dotIndex > -1 and not(e[:dotIndex] == "info" or e[:dotIndex] == "pic" or e[dotIndex + 1:] == "db" or e[dotIndex + 1:] == "txt" or e[dotIndex + 1:] == "jpg" or e[dotIndex + 1:] == "jpeg" or e[dotIndex + 1:] == "png" or e[dotIndex + 1:] == "gif"):
+                        if dotIndex > -1 and not(e[dotIndex + 1:] == "db" or e[dotIndex + 1:] == "jpg" or e[dotIndex + 1:] == "jpeg" or e[dotIndex + 1:] == "png" or e[dotIndex + 1:] == "gif"):
                             bookCount = bookCount + 1
-                            record.append((e[:dotIndex], e[dotIndex + 1:], els[0][:-1], picName,info))
+                            record.append((e[:dotIndex], e[dotIndex + 1:], "", picName,info))
             els = []
         line = f.readline()
         if len(record) >= 1000:
