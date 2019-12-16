@@ -31,13 +31,13 @@ with open("list.txt", encoding= 'utf-8') as f:
         if len(record) >= 1000:
             cur = conn.cursor()
             cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
-    	    conn.commit()
+            conn.commit()
             print(bookCount)
             record = []
     if len(record) > 0:
         cur = conn.cursor()
         cur.executemany('insert into `book` (`book_name`,`category`,`path`,`cover`, `abstract`) values (%s,%s,%s,%s,%s)', record)
-    	conn.commit()
+        conn.commit()
         print(bookCount)
     cur.close()
     conn.close()
