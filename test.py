@@ -6,7 +6,7 @@ conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5Liar
 
 with open("classified.txt", encoding= 'utf-8') as f:
     line = f.readline()
-    els = []
+    els = [] 
     bookCount = 0
     record = []
     while line:
