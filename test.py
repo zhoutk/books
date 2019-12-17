@@ -5,7 +5,7 @@ import time
 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
 
 with open("classified.txt", encoding= 'utf-8') as f:
-    line = f.readline()
+    line = f.readline() 
     els = [] 
     bookCount = 0
     record = []
