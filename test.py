@@ -4,7 +4,7 @@ import time
 
 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
 
-with open("kindBookStore.txt", encoding= 'utf-8') as f:
+with open("kindleRen.txt", encoding= 'utf-8') as f:
     line = f.readline() 
     els = [] 
     bookCount = 0
@@ -41,7 +41,7 @@ with open("kindBookStore.txt", encoding= 'utf-8') as f:
                         dotIndex = e.rfind(".")
                         if dotIndex > -1 and not(e.endswith("/")) and not(e[dotIndex + 1:] == "db" or e[dotIndex + 1:] == "opf" or e[dotIndex + 1:] == "DS_Store"):
                             bookCount = bookCount + 1
-                            record.append((e[:dotIndex], e[dotIndex + 1:], path, picName,info,classified,classified_second,"KindleBookStore",path[lastIndex + 1:]))
+                            record.append((e[:dotIndex], e[dotIndex + 1:], path, picName,info,classified,classified_second,"KindleRen",path[lastIndex + 1:]))
             els = []
         line = f.readline()
         if len(record) >= 10000:
@@ -63,6 +63,7 @@ with open("kindBookStore.txt", encoding= 'utf-8') as f:
         cur.close()
         conn.close()
     
+    print(bookCount)
     print("finish.")
 
         
