@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 19/12/2019 10:59:16
+ Date: 24/12/2019 07:40:33
 */
 
 SET NAMES utf8mb4;
@@ -29,8 +29,10 @@ CREATE TABLE `book`  (
   `abstract` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `cover` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   `classified` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+  `classified_second` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   `source` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+  `last_dir` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 46357 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 68723 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
