@@ -18,6 +18,7 @@ with open("hanvon.txt", encoding= 'utf-8') as f:
                     path = els[0][:-1]
                     lastIndex = path.rfind("/")
                     info = ""
+                    fulltext = ""
                     picName = ""
                     tttt = path.split("/")
                     classified = tttt[2] if (len(tttt) > 2) else ""
@@ -30,17 +31,17 @@ with open("hanvon.txt", encoding= 'utf-8') as f:
                         if dotIndex > -1 and not(e.endswith("/")) and not(e[dotIndex + 1:] == "db" or e[dotIndex + 1:] == "opf" or e[dotIndex + 1:] == "DS_Store"):
                             if e.endswith(".txt"):
                                 try:
-                                    info = open("/home/zhoutk/" + els[0][:-1] + "/" + e, encoding="utf-8").read()
+                                    fulltxt = open("/home/zhoutk/" + els[0][:-1] + "/" + e, encoding="utf-8").read()
                                 except:
                                     print(els)
                             bookCount = bookCount + 1
-                            record.append((e[:dotIndex], e[dotIndex + 1:], path, picName,info,classified,classified_second,"Hanvon",path[lastIndex + 1:]))
+                            record.append((e[:dotIndex], e[dotIndex + 1:], path, picName,info,fulltext,classified,classified_second,"Hanvon",path[lastIndex + 1:]))
             els = []
         line = f.readline()
         if len(record) >= 1000:
                 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
                 cur = conn.cursor()
-                cur.executemany('insert into `book` (`book_name`,`ext`,`path`,`cover`, `abstract`,`classified`,`classified_second`,`source`,`last_dir`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)', record)
+                cur.executemany('insert into `book` (`book_name`,`ext`,`path`,`cover`, `abstract`,`full_text`,`classified`,`classified_second`,`source`,`last_dir`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', record)
                 conn.commit()
                 cur.close()
                 conn.close()
@@ -50,7 +51,7 @@ with open("hanvon.txt", encoding= 'utf-8') as f:
     if len(record) > 0:
         conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
         cur = conn.cursor()
-        cur.executemany('insert into `book_txt` (`book_name`,`ext`,`path`,`cover`, `abstract`,`classified`,`classified_second`,`source`,`last_dir`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)', record)
+        cur.executemany('insert into `book_txt` (`book_name`,`ext`,`path`,`cover`, `abstract`,`full_text`,`classified`,`classified_second`,`source`,`last_dir`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', record)
         conn.commit()
         print(bookCount)
         cur.close()
