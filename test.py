@@ -41,7 +41,7 @@ with open("hanvon.txt", encoding= 'utf-8') as f:
         if len(record) >= 1000:
                 conn = pymysql.connect(host='192.168.1.6', port=3388, user='root', passwd='5LiarZp6', db='books', charset='utf8mb4')
                 cur = conn.cursor()
-                cur.executemany('insert into `book` (`book_name`,`ext`,`path`,`cover`, `abstract`,`full_text`,`classified`,`classified_second`,`source`,`last_dir`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', record)
+                cur.executemany('insert into `book_txt` (`book_name`,`ext`,`path`,`cover`, `abstract`,`full_text`,`classified`,`classified_second`,`source`,`last_dir`) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', record)
                 conn.commit()
                 cur.close()
                 conn.close()
